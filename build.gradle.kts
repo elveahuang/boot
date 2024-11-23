@@ -56,8 +56,8 @@ dependencyManagement {
         dependency("org.bouncycastle:bcpkix-jdk18on:1.79")
         dependency("org.bouncycastle:bcprov-jdk18on:1.79")
         dependency("org.bouncycastle:bcutil-jdk18on:1.79")
-        dependency("com.taobao.arthas:arthas-agent-attach:4.0.4")
         dependency("com.taobao.arthas:arthas-packaging:4.0.4")
+        dependency("com.taobao.arthas:arthas-agent-attach:4.0.4")
         dependency("com.taobao.arthas:arthas-spring-boot-starter:4.0.4")
     }
 }
