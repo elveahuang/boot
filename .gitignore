@@ -1,0 +1,8 @@
+.gradle
+.idea
+application-local.yml
+application-production.yml
+build
+temp
+logs
+arthas-output

@@ -1,0 +1,56 @@
+### --------------------------------------------------------------------------------------------------------------------
+### Spring Config
+### --------------------------------------------------------------------------------------------------------------------
+spring:
+    servlet:
+        multipart:
+            enabled: true
+            max-file-size: 1000MB
+            max-request-size: 1000MB
+    datasource:
+        name: ds
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/boot?useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&allowPublicKeyRetrieval=true&useSSL=false&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: root
+    data:
+        redis:
+            host: 127.0.0.1
+            database: 9
+            port: 6379
+            password: redis
+    jpa:
+        open-in-view: false
+### --------------------------------------------------------------------------------------------------------------------
+### Spring Extension Config
+### --------------------------------------------------------------------------------------------------------------------
+#
+### --------------------------------------------------------------------------------------------------------------------
+### Application Config
+### --------------------------------------------------------------------------------------------------------------------
+app:
+    mail:
+        enabled: true
+        server:
+            enabled: true
+            from:
+            host:
+            port:
+            username:
+            password:
+            name:
+    sms:
+        enabled: true
+        type: aliyun
+        aliyun:
+            enabled: true
+            access-key-secret:
+            access-key-id:
+            sign-name:
+            template:
+    arthas:
+        enabled: true
+    test:
+        email:
+        mobile:

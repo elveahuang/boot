@@ -1,0 +1,45 @@
+name: Native Build
+on:
+    push:
+        branches: [ main ]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+            -   name: Setup Graalvm
+                uses: graalvm/setup-graalvm@v1
+                with:
+                    java-version: '21'
+                    distribution: 'graalvm'
+            -   name: Show Env
+                run: |
+                    echo "GRAALVM_HOME: $GRAALVM_HOME"
+                    echo "JAVA_HOME: $JAVA_HOME"
+                    java --version
+                    native-image --version
+            -   name: Build
+                run: |
+                    chmod a+x ./gradlew
+                    ./gradlew nativeCompile
+                    cd ./build/native/nativeCompile
+                    zip -qr app.zip *
+            -   name: Deploy
+                uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+                with:
+                    server: ${{ secrets.SERVER_HOST }}
+                    username: ${{ secrets.SERVER_USER }}
+                    ssh_private_key: ${{ secrets.SERVER_KEY }}
+                    local_path: "build/native/nativeCompile/app.zip"
+                    remote_path: "/data/app/deploy"
+                    sftpArgs: "-o ConnectTimeout=5"
+            -   name: Executing Remote SSH Commands
+                uses: appleboy/ssh-action@v1.0.3
+                with:
+                    host: ${{ secrets.SERVER_HOST }}
+                    username: ${{ secrets.SERVER_USER }}
+                    key: ${{ secrets.SERVER_KEY }}
+                    script: |
+                        sh /data/app/tools/deploy-app.sh
+                        sh /data/app/tools/start-app.sh
